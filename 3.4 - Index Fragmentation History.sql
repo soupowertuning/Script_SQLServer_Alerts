@@ -1,3 +1,21 @@
+/***********************************************************************************************************************************
+(C) 2016, Fabricio FranÃ§a Lima 
+
+Blog: https://www.fabriciolima.net/blog/
+
+Feedback: suporte@fabriciolima.net
+
+Instagram: @fabriciofrancalima
+
+Twitter: @fabriciodba
+
+Facebook: https://www.facebook.com/fabricio.francalima
+
+Linkedin: https://www.linkedin.com/in/fabriciolimasolucoesembd/
+
+Consultoria: comercial@fabriciolima.net
+
+***********************************************************************************************************************************/
 
 USE Traces
 
@@ -81,7 +99,7 @@ BEGIN
 
 	WHILE EXISTS ( SELECT TOP 1 object_id FROM #User_Tables )
 	BEGIN
-		-- Se passar de 6 da manha deve terminar a execução automaticamente
+		-- Se passar de 6 da manha deve terminar a execuÃ§Ã£o automaticamente
 		IF( (SELECT DATEPART(HOUR, GETDATE())) >= 6 )
 		BEGIN
 			BREAK
