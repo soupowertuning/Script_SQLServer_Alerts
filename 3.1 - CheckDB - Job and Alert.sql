@@ -1,3 +1,22 @@
+/***********************************************************************************************************************************
+(C) 2016, Fabricio Fran√ßa Lima 
+
+Blog: https://www.fabriciolima.net/blog/
+
+Feedback: suporte@fabriciolima.net
+
+Instagram: @fabriciofrancalima
+
+Twitter: @fabriciodba
+
+Facebook: https://www.facebook.com/fabricio.francalima
+
+Linkedin: https://www.linkedin.com/in/fabriciolimasolucoesembd/
+
+Consultoria: comercial@fabriciolima.net
+
+***********************************************************************************************************************************/
+
 USE Traces
 
 GO
@@ -95,7 +114,7 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'DBA - Ch
 		@database_name=N'Traces', 
 		@flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Alerta CorrupÁ„o Databases]    Script Date: 27/01/2017 14:49:04 ******/
+/****** Object:  Step [Alerta Corrup√ß√£o Databases]    Script Date: 27/01/2017 14:49:04 ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Alert Database Corruption', 
 		@step_id=2, 
 		@cmdexec_success_code=0, 
