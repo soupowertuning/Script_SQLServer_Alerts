@@ -1,5 +1,24 @@
+/***********************************************************************************************************************************
+(C) 2016, Fabricio França Lima 
+
+Blog: https://www.fabriciolima.net/blog/
+
+Feedback: suporte@fabriciolima.net
+
+Instagram: @fabriciofrancalima
+
+Twitter: @fabriciodba
+
+Facebook: https://www.facebook.com/fabricio.francalima
+
+Linkedin: https://www.linkedin.com/in/fabriciolimasolucoesembd/
+
+Consultoria: comercial@fabriciolima.net
+
+***********************************************************************************************************************************/
 
 use Traces 
+
 if OBJECT_ID('Log_Whoisactive') is not null
 	drop table Log_Whoisactive
 
