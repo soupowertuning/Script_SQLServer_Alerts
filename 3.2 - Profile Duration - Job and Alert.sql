@@ -1,18 +1,29 @@
-/*******************************************************************************************************************************
-(C) 2016, Fabricio Lima SoluÁıes em Banco de Dados
+/***********************************************************************************************************************************
+(C) 2016, Fabricio Fran√ßa Lima 
 
-Site: http://www.fabriciolima.net/
+Blog: https://www.fabriciolima.net/blog/
 
 Feedback: suporte@fabriciolima.net
-*******************************************************************************************************************************/
 
---Essa rotina È opcional. Caso n„o queira ligar um profile no servidor, n„o execute esses script. VocÍ tambÈm pode usar um Extended EVENT se preferir.
+Instagram: @fabriciofrancalima
+
+Twitter: @fabriciodba
+
+Facebook: https://www.facebook.com/fabricio.francalima
+
+Linkedin: https://www.linkedin.com/in/fabriciolimasolucoesembd/
+
+Consultoria: comercial@fabriciolima.net
+
+***********************************************************************************************************************************/
+
+--Essa rotina √© opcional. Caso n√£o queira ligar um profile no servidor, n√£o execute esses script. Voc√™ tamb√©m pode usar um Extended EVENT se preferir.
 --This script is optional. If you don't want to create a profile on your SQL Server, don't run this script. You can also use a Extended Event if you want.
 
 
 ----------- Steps to execute this script and create a Profile to monitor 3 seconds query
 
--- 1) Fazer um Replace(CTRL + H) no caminho "C:\Temp\teste" e alterar para um Caminho Real no servidor. VocÍ precisa dar acesso ao usu·rio do SQL nessa pasta para criar e excluir arquivo, caso contr·rio o job de trace vai falhar.
+-- 1) Fazer um Replace(CTRL + H) no caminho "C:\Temp\teste" e alterar para um Caminho Real no servidor. Voc√™ precisa dar acesso ao usu√°rio do SQL nessa pasta para criar e excluir arquivo, caso contr√°rio o job de trace vai falhar.
 
 -- 1) You need to do a replace the path "C:\Temp\teste" on this script to a path that exists on the server. You need to give access to the SQL User on this path to create and drop the trace file. Without this, the job will fail.
 
@@ -91,58 +102,58 @@ BEGIN
 	declare @on bit
 	set @on = 1
 
-	-- 10 RPC:Completed Ocorre quando uma RPC (chamada de procedimento remoto) È concluÌda. 
+	-- 10 RPC:Completed Ocorre quando uma RPC (chamada de procedimento remoto) √© conclu√≠da. 
 	exec sp_trace_setevent @TraceID, 10, 1, @on		-- TextData: Valor de texto dependente da classe de evento capturada no rastreamento.
-	exec sp_trace_setevent @TraceID, 10, 6, @on		-- NTUserName: Nome de usu·rio do Microsoft Windows. 
-	exec sp_trace_setevent @TraceID, 10, 8, @on		-- HostName: Nome do computador cliente que originou a solicitaÁ„o. 
-	exec sp_trace_setevent @TraceID, 10, 10, @on	-- ApplicationName: Nome do aplicativo cliente que criou a conex„o com uma inst‚ncia do SQL Server.
-													-- Essa coluna È populada com os valores passados pelo aplicativo e n„o com o nome exibido do programa.
+	exec sp_trace_setevent @TraceID, 10, 6, @on		-- NTUserName: Nome de usu√°rio do Microsoft Windows. 
+	exec sp_trace_setevent @TraceID, 10, 8, @on		-- HostName: Nome do computador cliente que originou a solicita√ß√£o. 
+	exec sp_trace_setevent @TraceID, 10, 10, @on	-- ApplicationName: Nome do aplicativo cliente que criou a conex√£o com uma inst√¢ncia do SQL Server.
+													-- Essa coluna √© populada com os valores passados pelo aplicativo e n√£o com o nome exibido do programa.
 	exec sp_trace_setevent @TraceID, 10, 11, @on	-- LoginName: Nome de logon do cliente no SQL Server.
-	exec sp_trace_setevent @TraceID, 10, 12, @on	-- SPID: ID de processo de servidor atribuÌda pelo SQL Server ao processo associado ao cliente.
-	exec sp_trace_setevent @TraceID, 10, 13, @on	-- Duration: Tempo decorrido (em milhıes de segundos) utilizado pelo evento. 
-													-- Esta coluna de dados n„o È populada pelo evento Hash Warning.
-	exec sp_trace_setevent @TraceID, 10, 14, @on	-- StartTime: Hor·rio de inÌcio do evento, quando disponÌvel.
-	exec sp_trace_setevent @TraceID, 10, 15, @on	-- EndTime: Hor·rio em que o evento foi encerrado. Esta coluna n„o È populada para classes de evento
-													-- iniciais, como SQL:BatchStarting ou SP:Starting. TambÈm n„o È populada pelo evento Hash Warning.
-	exec sp_trace_setevent @TraceID, 10, 16, @on	-- Reads: N˙mero de leituras lÛgicas do disco executadas pelo servidor em nome do evento. 
-													-- Esta coluna n„o È populada pelo evento Lock:Released.
-	exec sp_trace_setevent @TraceID, 10, 17, @on	-- Writes: N˙mero de gravaÁıes no disco fÌsico executadas pelo servidor em nome do evento.
+	exec sp_trace_setevent @TraceID, 10, 12, @on	-- SPID: ID de processo de servidor atribu√≠da pelo SQL Server ao processo associado ao cliente.
+	exec sp_trace_setevent @TraceID, 10, 13, @on	-- Duration: Tempo decorrido (em milh√µes de segundos) utilizado pelo evento. 
+													-- Esta coluna de dados n√£o √© populada pelo evento Hash Warning.
+	exec sp_trace_setevent @TraceID, 10, 14, @on	-- StartTime: Hor√°rio de in√≠cio do evento, quando dispon√≠vel.
+	exec sp_trace_setevent @TraceID, 10, 15, @on	-- EndTime: Hor√°rio em que o evento foi encerrado. Esta coluna n√£o √© populada para classes de evento
+													-- iniciais, como SQL:BatchStarting ou SP:Starting. Tamb√©m n√£o √© populada pelo evento Hash Warning.
+	exec sp_trace_setevent @TraceID, 10, 16, @on	-- Reads: N√∫mero de leituras l√≥gicas do disco executadas pelo servidor em nome do evento. 
+													-- Esta coluna n√£o √© populada pelo evento Lock:Released.
+	exec sp_trace_setevent @TraceID, 10, 17, @on	-- Writes: N√∫mero de grava√ß√µes no disco f√≠sico executadas pelo servidor em nome do evento.
 	exec sp_trace_setevent @TraceID, 10, 18, @on	-- CPU: Tempo da CPU (em milissegundos) usado pelo evento.
 	exec sp_trace_setevent @TraceID, 10, 19, @on	-- CPU: Tempo da CPU (em milissegundos) usado pelo evento.
-	exec sp_trace_setevent @TraceID, 10, 26, @on	-- ServerName: Nome da inst‚ncia do SQL Server, servername ou servername\instancename, 
-													-- que est· sendo rastreada
-	exec sp_trace_setevent @TraceID, 10, 35, @on	-- DatabaseName: Nome do banco de dados especificado na instruÁ„o USE banco de dados.
-	exec sp_trace_setevent @TraceID, 10, 40, @on	-- DBUserName: Nome de usu·rio do banco de dados do SQL Server do cliente.
-	exec sp_trace_setevent @TraceID, 10, 48, @on	-- RowCounts: N˙mero de linhas no lote.
-	--exec sp_trace_setevent @TraceID, 10, 64, @on	-- SessionLoginName: O nome de logon do usu·rio que originou a sess„o. Por exemplo, se vocÍ 
-	--												-- se conectar ao SQL Server usando Login1 e executar uma instruÁ„o como Login2, SessionLoginName
-	--												-- ir· exibir Login1, enquanto que LoginName exibir· Login2. Esta coluna de dados exibe logons
+	exec sp_trace_setevent @TraceID, 10, 26, @on	-- ServerName: Nome da inst√¢ncia do SQL Server, servername ou servername\instancename, 
+													-- que est√° sendo rastreada
+	exec sp_trace_setevent @TraceID, 10, 35, @on	-- DatabaseName: Nome do banco de dados especificado na instru√ß√£o USE banco de dados.
+	exec sp_trace_setevent @TraceID, 10, 40, @on	-- DBUserName: Nome de usu√°rio do banco de dados do SQL Server do cliente.
+	exec sp_trace_setevent @TraceID, 10, 48, @on	-- RowCounts: N√∫mero de linhas no lote.
+	--exec sp_trace_setevent @TraceID, 10, 64, @on	-- SessionLoginName: O nome de logon do usu√°rio que originou a sess√£o. Por exemplo, se voc√™ 
+	--												-- se conectar ao SQL Server usando Login1 e executar uma instru√ß√£o como Login2, SessionLoginName
+	--												-- ir√° exibir Login1, enquanto que LoginName exibir√° Login2. Esta coluna de dados exibe logons
 	--												-- tanto do SQL Server, quanto do Windows.
 
 	exec sp_trace_setevent @TraceID, 12, 1,  @on	-- TextData: Valor de texto dependente da classe de evento capturada no rastreamento.
-	exec sp_trace_setevent @TraceID, 12, 6,  @on	-- NTUserName: Nome de usu·rio do Microsoft Windows. 
-	exec sp_trace_setevent @TraceID, 12, 8,  @on	-- HostName: Nome do computador cliente que originou a solicitaÁ„o. 
-	exec sp_trace_setevent @TraceID, 12, 10, @on	-- ApplicationName: Nome do aplicativo cliente que criou a conex„o com uma inst‚ncia do SQL Server. 
-													-- Essa coluna È populada com os valores passados pelo aplicativo e n„o com o nome exibido do programa.
+	exec sp_trace_setevent @TraceID, 12, 6,  @on	-- NTUserName: Nome de usu√°rio do Microsoft Windows. 
+	exec sp_trace_setevent @TraceID, 12, 8,  @on	-- HostName: Nome do computador cliente que originou a solicita√ß√£o. 
+	exec sp_trace_setevent @TraceID, 12, 10, @on	-- ApplicationName: Nome do aplicativo cliente que criou a conex√£o com uma inst√¢ncia do SQL Server. 
+													-- Essa coluna √© populada com os valores passados pelo aplicativo e n√£o com o nome exibido do programa.
 	exec sp_trace_setevent @TraceID, 12, 11, @on	-- LoginName: Nome de logon do cliente no SQL Server.
-	exec sp_trace_setevent @TraceID, 12, 12, @on	-- SPID: ID de processo de servidor atribuÌda pelo SQL Server ao processo associado ao cliente.
-	exec sp_trace_setevent @TraceID, 12, 13, @on	-- Duration: Tempo decorrido (em milhıes de segundos) utilizado pelo evento. Esta coluna de dados n„o
-													-- È populada pelo evento Hash Warning.
-	exec sp_trace_setevent @TraceID, 12, 14, @on	-- StartTime: Hor·rio de inÌcio do evento, quando disponÌvel.
-	exec sp_trace_setevent @TraceID, 12, 15, @on	-- EndTime: Hor·rio em que o evento foi encerrado. Esta coluna n„o È populada para classes de evento
-													-- iniciais, como SQL:BatchStarting ou SP:Starting. TambÈm n„o È populada pelo evento Hash Warning.
-	exec sp_trace_setevent @TraceID, 12, 16, @on	-- Reads: N˙mero de leituras lÛgicas do disco executadas pelo servidor em nome do evento. 
-													-- Esta coluna n„o È populada pelo evento Lock:Released.
-	exec sp_trace_setevent @TraceID, 12, 17, @on	-- Writes: N˙mero de gravaÁıes no disco fÌsico executadas pelo servidor em nome do evento.
+	exec sp_trace_setevent @TraceID, 12, 12, @on	-- SPID: ID de processo de servidor atribu√≠da pelo SQL Server ao processo associado ao cliente.
+	exec sp_trace_setevent @TraceID, 12, 13, @on	-- Duration: Tempo decorrido (em milh√µes de segundos) utilizado pelo evento. Esta coluna de dados n√£o
+													-- √© populada pelo evento Hash Warning.
+	exec sp_trace_setevent @TraceID, 12, 14, @on	-- StartTime: Hor√°rio de in√≠cio do evento, quando dispon√≠vel.
+	exec sp_trace_setevent @TraceID, 12, 15, @on	-- EndTime: Hor√°rio em que o evento foi encerrado. Esta coluna n√£o √© populada para classes de evento
+													-- iniciais, como SQL:BatchStarting ou SP:Starting. Tamb√©m n√£o √© populada pelo evento Hash Warning.
+	exec sp_trace_setevent @TraceID, 12, 16, @on	-- Reads: N√∫mero de leituras l√≥gicas do disco executadas pelo servidor em nome do evento. 
+													-- Esta coluna n√£o √© populada pelo evento Lock:Released.
+	exec sp_trace_setevent @TraceID, 12, 17, @on	-- Writes: N√∫mero de grava√ß√µes no disco f√≠sico executadas pelo servidor em nome do evento.
 	exec sp_trace_setevent @TraceID, 12, 18, @on	-- CPU: Tempo da CPU (em milissegundos) usado pelo evento.
-	exec sp_trace_setevent @TraceID, 12, 26, @on	-- ServerName: Nome da inst‚ncia do SQL Server, servername ou servername\instancename, 
-													-- que est· sendo rastreada
-	exec sp_trace_setevent @TraceID, 12, 35, @on	-- DatabaseName: Nome do banco de dados especificado na instruÁ„o USE banco de dados.
-	exec sp_trace_setevent @TraceID, 12, 40, @on	-- DBUserName: Nome de usu·rio do banco de dados do SQL Server do cliente.
-	exec sp_trace_setevent @TraceID, 12, 48, @on	-- RowCounts: N˙mero de linhas no lote.
-	--exec sp_trace_setevent @TraceID, 12, 64, @on	-- SessionLoginName: O nome de logon do usu·rio que originou a sess„o. Por exemplo, se vocÍ se
-	--												-- conectar ao SQL Server usando Login1 e executar uma instruÁ„o como Login2, SessionLoginName
-	--												-- ir· exibir Login1, enquanto que LoginName exibir· Login2. Esta coluna de dados exibe logons
+	exec sp_trace_setevent @TraceID, 12, 26, @on	-- ServerName: Nome da inst√¢ncia do SQL Server, servername ou servername\instancename, 
+													-- que est√° sendo rastreada
+	exec sp_trace_setevent @TraceID, 12, 35, @on	-- DatabaseName: Nome do banco de dados especificado na instru√ß√£o USE banco de dados.
+	exec sp_trace_setevent @TraceID, 12, 40, @on	-- DBUserName: Nome de usu√°rio do banco de dados do SQL Server do cliente.
+	exec sp_trace_setevent @TraceID, 12, 48, @on	-- RowCounts: N√∫mero de linhas no lote.
+	--exec sp_trace_setevent @TraceID, 12, 64, @on	-- SessionLoginName: O nome de logon do usu√°rio que originou a sess√£o. Por exemplo, se voc√™ se
+	--												-- conectar ao SQL Server usando Login1 e executar uma instru√ß√£o como Login2, SessionLoginName
+	--												-- ir√° exibir Login1, enquanto que LoginName exibir√° Login2. Esta coluna de dados exibe logons
 	--												-- tanto do SQL Server, quanto do Windows.
 
 	-- Set the Filters.
