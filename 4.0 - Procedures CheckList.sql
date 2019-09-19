@@ -1,12 +1,21 @@
-/*******************************************************************************************************************************
-(C) 2016, Fabricio Lima SoluÁıes em Banco de Dados
+/***********************************************************************************************************************************
+(C) 2016, Fabricio Fran√ßa Lima 
 
-Site: http://www.fabriciolima.net/
+Blog: https://www.fabriciolima.net/blog/
 
-Feedback: contato@fabriciolima.net
+Feedback: suporte@fabriciolima.net
 
+Instagram: @fabriciofrancalima
 
-*******************************************************************************************************************************/
+Twitter: @fabriciodba
+
+Facebook: https://www.facebook.com/fabricio.francalima
+
+Linkedin: https://www.linkedin.com/in/fabriciolimasolucoesembd/
+
+Consultoria: comercial@fabriciolima.net
+
+***********************************************************************************************************************************/
 use Traces
 
 /*
@@ -1508,7 +1517,7 @@ BEGIN
 		  CAST([Run_Date] + ' ' + RIGHT('00' + SUBSTRING([Run_Time],(LEN([Run_Time])-5), 2), 2) + ':' +
 			  RIGHT('00' + SUBSTRING([Run_Time],(LEN([Run_Time])-3), 2), 2) + ':' +
 			  RIGHT('00' + SUBSTRING([Run_Time],(LEN([Run_Time])-1), 2), 2) AS DATETIME) >= @ontem + ' 08:00' 
-		  AND  /*dia anterior no hor·rio*/
+		  AND  /*dia anterior no hor√°rio*/
 			CAST([Run_Date] + ' ' + RIGHT('00' + SUBSTRING([Run_Time],(LEN([Run_Time])-5), 2), 2) + ':' +
 			  RIGHT('00' + SUBSTRING([Run_Time],(LEN([Run_Time])-3), 2), 2) + ':' +
 			  RIGHT('00' + SUBSTRING([Run_Time],(LEN([Run_Time])-1), 2), 2) AS DATETIME) < @hoje
@@ -1643,7 +1652,7 @@ BEGIN
 	WHERE	ja.session_id = (SELECT TOP 1 session_id FROM msdb.dbo.syssessions ORDER BY agent_start_date DESC)
 			AND start_execution_date is not null
 			AND stop_execution_date is null
-			AND DATEDIFF(minute,start_execution_date, GETDATE()) >= 10		-- No minimo 10 minutos em execuÁ„o
+			AND DATEDIFF(minute,start_execution_date, GETDATE()) >= 10		-- No minimo 10 minutos em execu√ß√£o
 
 	IF (@@ROWCOUNT = 0)
 	BEGIN
@@ -2129,8 +2138,8 @@ select
 	0 DIf_Resource_S,        0 DIf_Signal_S,0 DIf_WaitCount,
 	0 DIf_Percentage, 0 Last_Percentage
 /*
-select 'Houve uma limpeza das Waits Stats apÛs a coleta do dia: ' + cast(MIN_Data as varchar) +
-' | Favor alterar o perÌodo para que n„o inclua essa limpeza.'
+select 'Houve uma limpeza das Waits Stats ap√≥s a coleta do dia: ' + cast(MIN_Data as varchar) +
+' | Favor alterar o per√≠odo para que n√£o inclua essa limpeza.'
 from @Wait_Stats where WaitType = 'RESET WAITS STATS'
  */
 return
@@ -2141,7 +2150,7 @@ C.Resource_S - B.Resource_S DIf_Resource_S,        C.Signal_S - B.Signal_S DIf_S
 C.Percentage - B.Percentage DIf_Percentage, B.Percentage Last_Percentage
 from @Wait_Stats A
 join Waits_Stats_History B on A.Min_Id = B.Id_Waits_Stats_History -- Primeiro
-join Waits_Stats_History C on A.Max_Id = C.Id_Waits_Stats_History -- ⁄ltimo
+join Waits_Stats_History C on A.Max_Id = C.Id_Waits_Stats_History -- √öltimo
  
  END
 
@@ -2569,7 +2578,7 @@ SET NOCOUNT ON
 
 	IF @Fl_Language = 1 --Portuguese
 	BEGIN
-		SET @Header = REPLACE(@Header_Default,'HEADERTEXT','EspaÁo em Disco')				
+		SET @Header = REPLACE(@Header_Default,'HEADERTEXT','Espa√ßo em Disco')				
 	END
     ELSE 
 	BEGIN
@@ -2610,7 +2619,7 @@ SET NOCOUNT ON
 		
 	IF @Fl_Language = 1 --Portuguese
 	BEGIN
-		SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 5 - InformaÁıes dos Arquivos de Dados (MDF e NDF)')				
+		SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 5 - Informa√ß√µes dos Arquivos de Dados (MDF e NDF)')				
 	END
     ELSE 
 	BEGIN
@@ -2651,7 +2660,7 @@ SET NOCOUNT ON
 
 	IF @Fl_Language = 1 --Portuguese
 	BEGIN
-		SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 5 - InformaÁıes dos Arquivos de Log (LDF)')				
+		SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 5 - Informa√ß√µes dos Arquivos de Log (LDF)')				
 	END
     ELSE 
 	BEGIN
@@ -2808,7 +2817,7 @@ SET NOCOUNT ON
 
 		IF @Fl_Language = 1 --Portuguese
 		BEGIN
-			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - UtilizaÁ„o Arquivos Databases - Writes (09:00 - 18:00) ')				
+			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - Utiliza√ß√£o Arquivos Databases - Writes (09:00 - 18:00) ')				
 		END
 		ELSE 
 		BEGIN
@@ -2843,7 +2852,7 @@ SET NOCOUNT ON
 
 		IF @Fl_Language = 1 --Portuguese
 		BEGIN
-			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - UtilizaÁ„o Arquivos Databases - Reads (09:00 - 18:00) ')				
+			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - Utiliza√ß√£o Arquivos Databases - Reads (09:00 - 18:00) ')				
 		END
 		ELSE 
 		BEGIN
@@ -2919,7 +2928,7 @@ SET NOCOUNT ON
 
 		IF @Fl_Language = 1 --Portuguese
 		BEGIN
-			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - Databases Sem Backup nas ˙ltimas 16 Horas')				
+			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - Databases Sem Backup nas √∫ltimas 16 Horas')				
 		END
 		ELSE 
 		BEGIN
@@ -3004,7 +3013,7 @@ SET NOCOUNT ON
 		
 		IF @Fl_Language = 1 --Portuguese
 		BEGIN
-			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 5 - Queries em ExecuÁ„o a mais de 2 horas')				
+			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 5 - Queries em Execu√ß√£o a mais de 2 horas')				
 		END
 		ELSE 
 		BEGIN
@@ -3037,7 +3046,7 @@ SET NOCOUNT ON
 						
 		IF @Fl_Language = 1 --Portuguese
 		BEGIN
-			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - Jobs em ExecuÁ„o')				
+			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - Jobs em Execu√ß√£o')				
 		END
 		ELSE 
 		BEGIN
@@ -3216,7 +3225,7 @@ SET NOCOUNT ON
 
 		IF @Fl_Language = 1 --Portuguese
 		BEGIN
-			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - Queries Demoradas - ⁄ltimos 10 Dias (07:00 - 23:00)')				
+			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - Queries Demoradas - √öltimos 10 Dias (07:00 - 23:00)')				
 		END
 		ELSE 
 		BEGIN
@@ -3254,7 +3263,7 @@ SET NOCOUNT ON
 
 		IF @Fl_Language = 1 --Portuguese
 		BEGIN
-			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','MÈdia Contadores Dia Anterior (07:00 - 23:00)')				
+			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','M√©dia Contadores Dia Anterior (07:00 - 23:00)')				
 		END
 		ELSE 
 		BEGIN
@@ -3288,7 +3297,7 @@ SET NOCOUNT ON
 
 		IF @Fl_Language = 1 --Portuguese
 		BEGIN
-			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - Conexıes Abertas por Usu·rios')				
+			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - Conex√µes Abertas por Usu√°rios')				
 		END
 		ELSE 
 		BEGIN
@@ -3333,7 +3342,7 @@ SET NOCOUNT ON
 
 		IF @Fl_Language = 1 --Portuguese
 		BEGIN
-			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - FragmentaÁ„o dos Õndices')				
+			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 10 - Fragmenta√ß√£o dos √çndices')				
 		END
 		ELSE 
 		BEGIN
@@ -3438,7 +3447,7 @@ SET NOCOUNT ON
 			
 		IF @Fl_Language = 1 --Portuguese
 		BEGIN
-			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 50 - Alertas ⁄ltimas 24 horas')				
+			SET @Header = REPLACE(@Header_Default,'HEADERTEXT','TOP 50 - Alertas √öltimas 24 horas')				
 		END
 		ELSE 
 		BEGIN
@@ -3806,7 +3815,7 @@ GO
 --------------------------------------------------------------------------------------------------------------------------------
 -- JOB: DBA - Load Table Size
 --------------------------------------------------------------------------------------------------------------------------------
--- Se o job j· existe, exclui para criar novamente.
+-- Se o job j√° existe, exclui para criar novamente.
 IF EXISTS (	SELECT job_id 
             FROM msdb.dbo.sysjobs_view 
             WHERE name = N'DBA - Load Table Size')
@@ -3934,13 +3943,13 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'DBA - Load SQL Server Files 
 		@notify_level_netsend=0, 
 		@notify_level_page=0, 
 		@delete_level=0, 
-		@description=N'Nenhuma descriÁ„o disponÌvel.', 
+		@description=N'Nenhuma descri√ß√£o dispon√≠vel.', 
 		@category_name=N'Database Maintenance', 
 		@owner_login_name=N'sa', 
 		@notify_email_operator_name=N'DBA_Operator',
 		@job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Carga UtilizaÁ„o Arquivo]    Script Date: 02/15/2017 10:47:48 ******/
+/****** Object:  Step [Carga Utiliza√ß√£o Arquivo]    Script Date: 02/15/2017 10:47:48 ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'DBA - Load SQL Server Files Performance', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -3987,7 +3996,7 @@ GO
 USE [msdb]
 GO
 
--- Se o job j· existe, exclui para criar novamente.
+-- Se o job j√° existe, exclui para criar novamente.
 IF EXISTS (SELECT job_id 
             FROM msdb.dbo.sysjobs_view 
             WHERE name = N'DBA - Load Wait Stats')
@@ -4049,7 +4058,7 @@ BEGIN TRANSACTION
 
 	EXEC @ReturnCode = msdb.dbo.sp_add_jobschedule 
 			@job_id = @jobId, 
-			@name = N'HistÛrico Wait', 
+			@name = N'Hist√≥rico Wait', 
 			@enabled = 1, 
 			@freq_type = 4, 
 			@freq_interval = 1, 
