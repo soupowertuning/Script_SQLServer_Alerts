@@ -1,4 +1,4 @@
-# Script_SQLServer_Alerts
+# SQL Server Alerts
 
 Hi Guys!
 
