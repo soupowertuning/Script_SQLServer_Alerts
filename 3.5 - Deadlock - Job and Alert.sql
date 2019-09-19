@@ -1,22 +1,31 @@
-/*****************************************************************************************************
+/***********************************************************************************************************************************
+(C) 2016, Fabricio Fran√ßa Lima 
 
-Replace this path "C:\Temp\Video Alertas"  for the existing place
+Blog: https://www.fabriciolima.net/blog/
 
-Open procedure stpAlert_Every_Day and uncomment this alert execution
-	--Enable if use deadlock
-	--EXEC dbo.stpAlert_DeadLocks
-	
+Feedback: suporte@fabriciolima.net
 
-*****************************************************************************************************/
+Instagram: @fabriciofrancalima
+
+Twitter: @fabriciodba
+
+Facebook: https://www.facebook.com/fabricio.francalima
+
+Linkedin: https://www.linkedin.com/in/fabriciolimasolucoesembd/
+
+Consultoria: comercial@fabriciolima.net
+
+***********************************************************************************************************************************/
 /*
 
---AZURE - MANAGED INSTANCE
+--IF YOU HAVE AZURE SQL DATABASE - MANAGED INSTANCE
 
 CREATE TABLE [dbo].[Log_DeadLock](
 	[eventDate] [datetime] NULL,
 	[deadlock] [xml] NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
+--Put this code on a job
 INSERT into Log_DeadLock
 SELECT CAST(timestamp_utc AS DATETIME) timestamp_utc,CAST(event_data AS XML) AS [target_data_XML]
 FROM master.sys.fn_xe_telemetry_blob_target_read_file('dl', null, null, null) A
@@ -25,6 +34,7 @@ WHERE CAST(A.timestamp_utc AS DATE) = CAST(GETDATE()-1 AS DATE)
 AND B.eventDate IS null
 
 */
+
 USE Traces
 
 UPDATE dbo.Alert_Parameter
@@ -259,7 +269,7 @@ GO
 USE [msdb]
 GO
 
--- Se o job j· existe, exclui para criar novamente.
+-- Se o job j√° existe, exclui para criar novamente.
 IF EXISTS (SELECT job_id 
             FROM msdb.dbo.sysjobs_view 
             WHERE name = N'DBA - Load XEvent Deadlock')
@@ -308,7 +318,7 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Executa 
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 EXEC @ReturnCode = msdb.dbo.sp_update_job @job_id = @jobId, @start_step_id = 1
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-EXEC @ReturnCode = msdb.dbo.sp_add_jobschedule @job_id=@jobId, @name=N'DI¡RIO - A CADA 5 MINUTOS', 
+EXEC @ReturnCode = msdb.dbo.sp_add_jobschedule @job_id=@jobId, @name=N'DI√ÅRIO - A CADA 5 MINUTOS', 
 		@enabled=1, 
 		@freq_type=4, 
 		@freq_interval=1, 
