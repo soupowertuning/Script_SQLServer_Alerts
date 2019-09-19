@@ -1,9 +1,24 @@
+/***********************************************************************************************************************************
+(C) 2016, Fabricio Fran√ßa Lima 
+
+Blog: https://www.fabriciolima.net/blog/
+
+Feedback: suporte@fabriciolima.net
+
+Instagram: @fabriciofrancalima
+
+Twitter: @fabriciodba
+
+Facebook: https://www.facebook.com/fabricio.francalima
+
+Linkedin: https://www.linkedin.com/in/fabriciolimasolucoesembd/
+
+Consultoria: comercial@fabriciolima.net
+
+***********************************************************************************************************************************/
+
+
 USE [Traces]
-GO
-/****** Object:  StoredProcedure [dbo].[stpAlert_Log_Full]    Script Date: 9/2/2019 10:04:14 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
 GO
 
 
@@ -21,8 +36,8 @@ CREATE TABLE [dbo].[Log_DB_Mirror](
 	Dt_Log datetime,
 	[Database_Name] varchar(200) NOT NULL,
 	[Mirroring_Role] [tinyint] NULL, -- 1 = Principal 2 = Espelhamento
-	[Mirroring_State] [tinyint] NULL, --0 = Suspended  1 = Desconectado do outro parceiro 2 = SincronizaÁ„o 3 = Failover pendente 4 = Sincronizado 5 = Os parceiros n„o est„o sincronizados. Failover impossÌvel no momento. 6 = Os parceiros est„o sincronizados. Failover È potencialmente possÌvel.
-	Mirroring_Safety_Level tinyint, --0 = Estado desconhecido  1 = Desativado [assÌncrono] 2 = Completo [sÌncrono]
+	[Mirroring_State] [tinyint] NULL, --0 = Suspended  1 = Desconectado do outro parceiro 2 = Sincroniza√ß√£o 3 = Failover pendente 4 = Sincronizado 5 = Os parceiros n√£o est√£o sincronizados. Failover imposs√≠vel no momento. 6 = Os parceiros est√£o sincronizados. Failover √© potencialmente poss√≠vel.
+	Mirroring_Safety_Level tinyint, --0 = Estado desconhecido  1 = Desativado [ass√≠ncrono] 2 = Completo [s√≠ncrono]
 	Mirroring_Partner_Instance varchar(100),	
 	[Witness_Status] [tinyint] NULL,	--0 = Desconhecido 1 = conectado 2 = Desconectado	
  CONSTRAINT [PK_Log_DBMirror] PRIMARY KEY CLUSTERED 
