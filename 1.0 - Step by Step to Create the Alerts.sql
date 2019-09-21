@@ -1,6 +1,6 @@
 
 /***********************************************************************************************************************************
-(C) 2016, Fabricio FranÁa Lima 
+(C) 2016, Fabricio Fran√ßa Lima 
 
 Blog: https://www.fabriciolima.net/blog/
 
@@ -23,24 +23,24 @@ select 4082+161+381+264+103+380+219+210+382+137+7429+444 (Quantidade de linhas d
 
 
 ------------------------------------------------------------------
--- 0) PrÈ-Requisitos para utilizar esses Scripts
+-- 0) Pr√©-Requisitos para utilizar esses Scripts
 -- 0) Prerequisite to use this scripts
 ------------------------------------------------------------------
 
 -- Criar a procedure sp_whoisactive (Obrigado Adam Machanic)
--- Create the sp_whoisactive procedure (thanks Adam Machanic)
+-- Create the sp_whoisactive stored procedure (thanks to Adam Machanic)
 
 --Link to Download:
 http://whoisactive.com/downloads/
 
---Crie a procedure exatamente com esse nome: sp_whoisactive (se n„o fizer isso, podemos ter erros em bancos case sensitive)
---Use the procedure name exactly like this: sp_whoisactive (if not we can have errors with case sensitive databases)
+--Crie a procedure exatamente com esse nome: sp_whoisactive (se n√£o fizer isso, podemos ter erros em bancos case sensitive)
+--Create the stored procedure name exactly as: sp_whoisactive (lower case, otherwise you can find errors related to case sensitive databases
 
---Test the procedure Whoisactive
+--Test the stored procedure Whoisactive
 exec sp_whoisactive 
 
---Antes de continuar, garanta que o envio de e-mail na sua inst‚ncia SQL Server est· funcionando.
---Before you continue, you need to check if your SQL Server Instance are sending mail correctly
+--Antes de continuar, garanta que o envio de e-mail na sua inst√¢ncia SQL Server est√° funcionando.
+--Before you continue, make sure that your SQL Server Instance is able to send emails
 
 --------------------------------------------------------------------------------------------------------------------------------
 -- 1) Criar um operator para utilizar nos jobs e uma database para armazenar os dados
@@ -63,8 +63,8 @@ exec sp_whoisactive
 
 
 
---Criar uma database para armazenar as informaÁıes. Eu utilizo uma database chamada Traces. Caso queira utilizar outra, ter· que alterar todo o script para a base com o seu nome.
--- We need a Database to put our scripts. I used a database called Traces on all script. So, if you want to use another database name, you will need to chance all script to use your database name.
+--Criar uma database para armazenar as informa√ß√µes. Eu utilizo uma database chamada Traces. Caso queira utilizar outra, ter√° que alterar todo o script para a base com o seu nome.
+--We need a Database to store our scripts. I use a database named [Traces] to all of my scripts, if you wish to use another name, you need to replace you database name by [Traces] within the whole script.
 GO
 	CREATE DATABASE [Traces] 
 		ON  PRIMARY ( 
@@ -83,8 +83,8 @@ GO
 
 	USE Traces
 	
-	-- Tabela para ignorar algumas bases n„o importantes de algumas rotinas no ambiente, como por exemplo o Checkdb.
-	-- Table to ignore some not important databases from some jobs like CheckDB.
+	-- Tabela para ignorar algumas bases n√£o importantes de algumas rotinas no ambiente, como por exemplo o Checkdb.
+	--Table used to ignore some databases from jobs like CheckDB
 	
 	IF ( OBJECT_ID('[dbo].[Ignore_Databases]') IS NOT NULL )
 		DROP TABLE [dbo].Ignore_Databases
@@ -93,8 +93,8 @@ GO
 		[Nm_Database] VARCHAR(500)
 	)
 
-	-- If you want to ignore some databases, just insert here.
-	-- Se vocÍ quiser ignotar alguma database, insira ela aqui.
+	-- If you want to ignore some databases, just insert it here.
+	-- Se voc√™ quiser ignotar alguma database, insira ela aqui.
 	INSERT INTO [Ignore_Databases]
 	VALUES('Nm_Database1'),('Nm_Database2'),('Nm_Database3') 
 	
@@ -108,13 +108,13 @@ GO
 -- RUN Script: "2.0 - Create Alert Table.sql"
 
 
--- Execute a procedure para criar a tabela com todos as configuraÁıes de alertas. Se preciso, esse È o lugar onde vai acertas os valores dos alertas.
+-- Execute a procedure para criar a tabela com todos as configura√ß√µes de alertas. Se preciso, esse √© o lugar onde vai acertas os valores dos alertas.
 -- Execute the procedure to create the Table with all Alert Configurations. If needed, this is the place to change some Alert Configurations. 
 
--- Mude o par‚metro "Email1@provedor.com;Email2@provedor.com" para os e-mails que v„o receber os alertas.
+-- Mude o par√¢metro "Email1@provedor.com;Email2@provedor.com" para os e-mails que v√£o receber os alertas.
 -- Change the parameter "Email@provedor.com" for the Emails that should receive the alerts. 
 
--- TambÈm mude o par‚metro @Profile para o Database Mail Profile configurado no seu SQL Server.
+-- Tamb√©m mude o par√¢metro @Profile para o Database Mail Profile configurado no seu SQL Server.
 -- Also change the parameter @Profile for your Database Mail Profile.
 USE Traces
 
@@ -130,13 +130,13 @@ select * from [dbo].Alert_Parameter
 -- RUN Script: "2.1 - Create All Alert Procedures and Jobs.sql"
 
 
---Criar os alertas de severidade. Esses alertas n„o funcionam no Managed Instance do Azure.
---Create the severity Alerts. Not run this procedure for a Managed Instance Environment.
+--Criar os alertas de severidade. Esses alertas n√£o funcionam no Managed Instance do Azure.
+--Create the Alerts of Severity. DO NOT run this stored procedure for an Azure Managed Instance Environment. For Azure Managed Instances, please find it at the end of this script.
 
 EXEC stpAlert_Severity
 
 
--- Utilize esses scripts para testar os alertas j· criados
+-- Utilize esses scripts para testar os alertas j√° criados
 -- Use this script to test some of the created alerts
 
 EXEC dbo.stpAlert_Every_Day
@@ -144,12 +144,14 @@ EXEC dbo.stpAlert_Every_Day
 EXEC dbo.stpTest_Alerts
 
 --------------------------------------------------------------------------------------------------------------------------------
--- 3)	Se tiver interesse, pode criar algumas rotinas adicionais para o seu banco de dados. VocÍ tem que entender o que essas rotinas fazem antes de criar. Tenha cuidado. Se n„o conhece SQL Server talvez seja melhor pular esse item 3.0 e ir para o item 4 dos scripts.
--- 3)	If you want, create the optional jobs and Alerts for your database. But be carefull. You need to urderstand what that routines do before use it. Be carefull. If you don't know SQL Server, maybe you can pass to the step 4 of the scripts.
+-- 3)	Se tiver interesse, pode criar algumas rotinas adicionais para o seu banco de dados. Voc√™ tem que entender o que essas rotinas fazem antes de criar. Tenha cuidado. Se n√£o conhece SQL Server talvez seja melhor pular esse item 3.0 e ir para o item 4 dos scripts.
+-- 3)	If you wish, you can create additional jobs and Alerts for your databases. But be carefull, you must be aware about what these routines do before you create it. Also be carefull, If you are not a SQL Server DBA or if you don't have a good doaming of it, maybe you should skip to step 4 of this setup.
 --------------------------------------------------------------------------------------------------------------------------------
 
-****** PT BR-> Na d˙vida acesse os vÌdeos explicando cada uma dessas rotinas ******
+****** PT BR-> Na d√∫vida acesse os v√≠deos explicando cada uma dessas rotinas ******
 link:
+"*** If you are not confident enough or if it's still not clear, watch below videos about each of these routines.***"
+link: English video not available yet
 
 ---------------------3.1)  Job to execute a checkdb on databases and an alert if we have some corrupted database. 
 
@@ -281,7 +283,7 @@ EXEC msdb.dbo.sp_start_job N'DBA - CheckList SQL Server Instance';
 ---------------------------------------------------------------------------------------------------------------------------------
 -- Scripts Just for Managed Instance 
 ---------------------------------------------------------------------------------------------------------------------------------
--- If you are creating this scripts on a managed instance, you need to disable some alert and checklist informations.
+-- If you are creating this scripts on an Azure Managed Instance, you need to disable some alerts and checklist informations.
 
 -- Disable Alerts
 update Alert_Parameter
