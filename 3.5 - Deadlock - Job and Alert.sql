@@ -16,7 +16,16 @@ Linkedin: https://www.linkedin.com/in/fabriciolimasolucoesembd/
 Consultoria: comercial@fabriciolima.net
 
 ***********************************************************************************************************************************/
+
 /*
+Instructions:
+1 - You need to change the path to a real one of your server
+	Replace: "C:\Temp\Video Alertas"
+*/
+
+
+/*
+	
 
 --IF YOU HAVE AZURE SQL DATABASE - MANAGED INSTANCE
 
