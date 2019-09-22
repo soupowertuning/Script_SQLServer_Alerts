@@ -1,11 +1,33 @@
-USE [Traces]
-GO
+  
+/***********************************************************************************************************************************
+(C) 2016, Fabricio França Lima 
+
+Blog: https://www.fabriciolima.net/blog/
+
+Feedback: suporte@fabriciolima.net
+
+Instagram: @fabriciofrancalima
+
+Twitter: @fabriciodba
+
+Facebook: https://www.facebook.com/fabricio.francalima
+
+Linkedin: https://www.linkedin.com/in/fabriciolimasolucoesembd/
+
+Consultoria: comercial@fabriciolima.net
+
+***********************************************************************************************************************************/
 
 /*
 Instructions:
 1 - You need to change the path to a real one of your server
 	Replace: "C:\Temp\Video Alertas"
 */
+
+
+
+USE [Traces]
+GO
 
 --Enable the Database Error Alert
 	update Alert_Parameter
