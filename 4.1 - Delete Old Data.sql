@@ -69,6 +69,14 @@ BEGIN
 	if OBJECT_ID('Log_DB_Mirror') is not null
 		delete from Log_DB_Mirror
 		where Dt_Log < DATEADD(dd,@Log_DB_Mirror*-1,getdate())
+		
+	if OBJECT_ID('Index_Fragmentation_History') is not null
+		delete from Index_Fragmentation_History
+		where Dt_Log <  DATEADD(dd,@Index_Fragmentation_History*-1,getdate())
+	
+	if OBJECT_ID('Queries_Profile') is not null
+		delete from Queries_Profile
+		where StartTime <  DATEADD(dd,@Queries_Profile*-1,getdate())
 
 	delete from Waits_Stats_History
 	where Dt_Log < DATEADD(dd,@Waits_Stats_History*-1,getdate())	
@@ -84,16 +92,7 @@ BEGIN
 	
 	delete from Table_Size_History
 	where Dt_Log <  DATEADD(dd,@Table_Size_History*-1,getdate())
-	
-	delete from Index_Utilization_History
-	where Dt_History <  DATEADD(dd,@Index_Utilization_History*-1,getdate())	
-	
-	delete from Index_Fragmentation_History
-	where Dt_Log <  DATEADD(dd,@Index_Fragmentation_History*-1,getdate())
-	
-	delete from Queries_Profile
-	where StartTime <  DATEADD(dd,@Queries_Profile*-1,getdate())
-	
+
 	delete from File_Utilization_History
 	where Dt_Log <  DATEADD(dd,@File_Utilization_History*-1,getdate())	
 
