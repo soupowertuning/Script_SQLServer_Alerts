@@ -19,7 +19,7 @@ Consultoria: comercial@fabriciolima.net
 
 select 4082+161+381+264+103+380+219+210+382+137+7429+444 (Quantidade de linhas dos scripts)
 
-Post with the alert informations:
+Post do blog com informações sobre os alertas:
 http://www.fabriciolima.net/blog/2019/09/22/passo-a-passo-de-como-criar-40-alertas-para-monitorar-seu-sql-server/
 
 Vídeos explicando o passo a passo para a criação dos alertas:
