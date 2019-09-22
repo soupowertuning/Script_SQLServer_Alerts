@@ -19,6 +19,10 @@ Consultoria: comercial@fabriciolima.net
 Instructions:
 1 - You need to change the path to a real one of your server
 	Replace: "C:\Temp\Video Alertas"
+	
+--Open the procedure stpAlert_Every_Day e uncomment the stored procedure call "exec stpAlert_DeadLocks"
+	EXEC dbo.stpAlert_DeadLocks
+	
 ***********************************************************************************************************************************/
 
 /*
