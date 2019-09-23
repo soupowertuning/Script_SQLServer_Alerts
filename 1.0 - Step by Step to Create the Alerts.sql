@@ -127,7 +127,6 @@ USE Traces
 exec stpConfiguration_Table 'Email1@provedor.com;Email2@provedor.com', @Profile, @Fl_Language --(1 - Portuguese | 0 -- English)
 
 
-EXEC stpConfiguration_Table 'fabricioflima@gmail.com','MSSQLServer',1
 
 --Check the Parameters
 select * from [dbo].Alert_Parameter
