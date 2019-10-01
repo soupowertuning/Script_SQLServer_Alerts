@@ -2039,6 +2039,7 @@ BEGIN
 	JOIN sys.databases C ON C.name = [database_name]
 	WHERE	[type] IN ('L')
 		and backup_start_date >= getdate()-2
+		and C.[recovery_model_desc] = 'FULL'
 	Group By database_name				
 
 	--	Do we have backup problems?	
