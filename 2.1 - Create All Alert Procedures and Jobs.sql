@@ -5002,8 +5002,13 @@ SET NOCOUNT ON
 		OR ISNULL([Wait Info],'') LIKE '%BROKER_RECEIVE_WAITFOR%' -- IGNORE this wait type
 		OR [Status] = 'sleeping' -- IGNORE this status
 		OR ISNULL([Wait Info],'') LIKE '%SP_SERVER_DIAGNOSTICS_SLEEP%' -- IGNORE this wait type
-			
-	--select * from #WhoIsActive_Result
+											       
+	-- don't alert for ASYNC with less than one day
+	DELETE #WhoIsActive_Result	
+	where ISNULL([Wait Info],'') LIKE '%ASYNC_NETWORK_IO%' 	
+		and [dd hh:mm:ss.mss] < '01 00:00:00.000'		
+							       
+	--select * from #WhoIsActive_Result						       
 
 	-- Do we have long queries?
 	IF exists(SELECT NULL FROM #WhoIsActive_Result)
