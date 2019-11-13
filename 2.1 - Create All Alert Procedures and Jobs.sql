@@ -1545,6 +1545,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+
 CREATE PROCEDURE [dbo].[stpAlert_Blocked_Process] @Nm_Alert varchar(50)
 AS
 BEGIN
@@ -1744,13 +1745,10 @@ BEGIN
 			-- Second Result
 			SET @Final_HTML = @Final_HTML + @Header + @Line_Space + @HTML + @Line_Space + @Company_Link			
 
-			EXEC [msdb].[dbo].[sp_send_dbmail]
-					@profile_name = @Ds_Profile_Email,
-					@recipients =	@Ds_Email,
-					@subject =		@Ds_Subject,
-					@body =			@Final_HTML,
-					@body_format =	'HTML',
-					@importance =	'High'									
+			
+			EXEC stpSend_Dbmail @Ds_Profile_Email,@Ds_Email,@Ds_Subject,@Final_HTML,'HTML','High'	
+
+								
 		
 			-- Fl_Type = 1 : ALERT	
 			INSERT INTO [dbo].[Alert] ( [Id_Alert_Parameter], [Ds_Message], [Fl_Type] )
@@ -1798,13 +1796,8 @@ BEGIN
 			-- First Result
 			SET @Final_HTML = @Header + @Line_Space + @HTML + @Line_Space + @Company_Link									 			
 
-			EXEC [msdb].[dbo].[sp_send_dbmail]
-					@profile_name = @Ds_Profile_Email,
-					@recipients =	@Ds_Email,
-					@subject =		@Ds_Subject,
-					@body =			@Final_HTML,
-					@body_format =	'HTML',
-					@importance =	'High'
+		
+			EXEC stpSend_Dbmail @Ds_Profile_Email,@Ds_Email,@Ds_Subject,@Final_HTML,'HTML','High'	
 			
 			-- Fl_Type = 0 : CLEAR
 			INSERT INTO [dbo].[Alert] ( [Id_Alert_Parameter], [Ds_Message], [Fl_Type] )
@@ -1812,7 +1805,6 @@ BEGIN
 		END		
 	END		-- END - CLEAR
 END
-
 
 
 GO
