@@ -348,7 +348,7 @@ BEGIN
 		[Id_Server] [smallint] NULL,
 		[Id_Database] [smallint] NULL,
 		[Id_Table] [int] NULL,
-		[Nm_Index] [varchar](900) NULL,
+		[Nm_Index] [varchar](700) NULL,
 		Nm_Schema varchar(50),
 		[Avg_Fragmentation_In_Percent] [numeric](5, 2) NULL,
 		[Page_Count] [int] NULL,
