@@ -365,6 +365,22 @@ BEGIN
 	ON Index_Fragmentation_History (Id_Table,Nm_Index,Id_Database,Id_Server) 
 	WITH(FILLFACTOR=90)
 END
+GO
+
+IF (OBJECT_ID('[dbo].[vwIndex_Fragmentation_History]') IS NOT NULL)
+	drop view [dbo].[vwIndex_Fragmentation_History]
+GO
+create view [dbo].[vwIndex_Fragmentation_History]
+AS
+select A.Dt_Log, B.Nm_Server, C.Nm_Database,D.Nm_Table ,A.Nm_Index, A.Nm_Schema, 
+	A.Avg_Fragmentation_In_Percent, A.Page_Count, A.Fill_Factor, A.Fl_Compression
+from Index_Fragmentation_History A
+	join User_Server B on A.Id_Server = B.Id_Server
+	join User_Database C on A.Id_Database = C.Id_Database
+	join User_Table D on A.Id_Table = D.Id_Table
+
+
+GO
 
 
 IF (OBJECT_ID('[dbo].[File_Utilization_History]') IS  NULL)
