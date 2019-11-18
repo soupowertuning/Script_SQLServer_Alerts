@@ -37,6 +37,7 @@ http://www.fabriciolima.net/blog/2019/09/22/passo-a-passo-de-como-criar-40-alert
 ## Como instalar os alertas?
  
 * Clone ou faça o donwload desse repositório.
-* Siga o [script do passo 1](scripts/1.0.StepByStep.sql)
+* Todos os scritps estão no diretório [scripts](scripts/)
+* Para iniciar, siga as instruções do arquivo [scripts/1.0.StepByStep.sql](scripts/1.0.StepByStep.sql)
  
 
