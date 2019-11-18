@@ -20,4 +20,4 @@ Now, in September-2019, I released the version 2.0:
  
 * Clone or download this repository
 * All scripts can be found on [scripts directory](scripts/) 
-* To get started, following the instrunctions on file [scripts/1.0.StepByStep.sql](scripts/1.0.StepByStep.sql)
+* To get started, follow the instrunctions on file [scripts/1.0.StepByStep.sql](scripts/1.0.StepByStep.sql)
