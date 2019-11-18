@@ -18,5 +18,5 @@ Now, in September-2019, I reseased the version 2.0:
 ## How install 
  
 * Clone or download this repository
-* All scrits can be found on [scripts directory](scripts/) 
+* All scripts can be found on [scripts directory](scripts/) 
 * To get started, following the instrunctions on file [scripts/1.0.StepByStep.sql](scripts/1.0.StepByStep.sql)
