@@ -1,5 +1,7 @@
 # Scripts para criar 40 Alertas no SQL Server
 
+*For english, [click here](README.en.md)*
+
 Fala Pessoal,
 
 Nesse repositório quero compartilhar com vocês um projeto que surgiu em 2010 com um e-mail para criar um checklist de um banco de dados 
@@ -18,8 +20,7 @@ https://www.fabriciolima.net/blog/2017/10/05/video-criando-15-alertas-no-sql-ser
 
 Até o dia 18/09, foram 2.6k views para o vídeo do checklist e 2.1k views para o vídeo dos alertas.
 
-Com o passar do tempo, continuamos evoluindo os scripts que utilizamos no dia a dia, e agora em 2019 liberei essa nova versão 
-que já cobre 40 alertas, incluindo o e-mail de checklist e um e-mail mensal com informações da sua instância.
+Com o passar do tempo, continuamos evoluindo os scripts que utilizamos no dia a dia, e agora em 2019 liberei essa nova versão, que já cobre 40 alertas, incluindo o e-mail de checklist e um e-mail mensal com informações da sua instância.
 
 
 Esse não é um projeto do Fabrício, e sim de vocês. Por este motivo, estou liberando o código dessa Stored Procedure no Github, para que todos vocês possam baixar, utilizar em seus ambientes e ajudar a deixá-la cada vez melhor através de commit’s e pull requests para trazer novos recursos e correções.
@@ -33,5 +34,9 @@ Segue o Artigo desses scripts caso precisem de ajuda para executá-los:
 http://www.fabriciolima.net/blog/2019/09/22/passo-a-passo-de-como-criar-40-alertas-para-monitorar-seu-sql-server/
 
  
+## Como instalar os alertas?
+ 
+* Clone ou faça o donwload desse repositório.
+* Siga o [script do passo 1](scripts/1.0 - Step by Step to Create the Alerts.sql)
  
 

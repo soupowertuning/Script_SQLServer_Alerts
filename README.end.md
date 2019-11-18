@@ -14,3 +14,8 @@ Now, in September-2019, I reseased the version 2.0:
   - I will still do a blog post explaining how to use this script in English. (Pending)
   - For now I recorded only a video in portuguese explaining how to create the alerts.
 
+
+## How install 
+ 
+* Clone or download this repository
+* Following the steps on file [script do passo 1](scripts/1.0 - Step by Step to Create the Alerts.sql)
