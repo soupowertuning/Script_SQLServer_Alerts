@@ -11,7 +11,7 @@ In 2017 I released the version 1.0:
 * https://www.fabriciolima.net/blog/2017/05/01/criando-um-e-mail-de-checklist-diario-no-sql-server/
 * https://www.fabriciolima.net/blog/2017/10/05/video-criando-15-alertas-no-sql-server-em-apenas-5-minutos/
 
-Now, in September-2019, I reseased the version 2.0:
+Now, in September-2019, I released the version 2.0:
   - I will still do a blog post explaining how to use this script in English. (Pending)
   - For now I recorded only a video in portuguese explaining how to create the alerts.
 
