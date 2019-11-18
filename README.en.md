@@ -18,4 +18,4 @@ Now, in September-2019, I reseased the version 2.0:
 ## How install 
  
 * Clone or download this repository
-* Following the steps on file [script do passo 1](scripts/1.0 - Step by Step to Create the Alerts.sql)
+* Following the steps on file [script do passo 1](scripts/1.0.StepByStep.sql)

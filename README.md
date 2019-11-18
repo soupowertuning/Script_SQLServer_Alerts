@@ -1,6 +1,6 @@
 # Scripts para criar 40 Alertas no SQL Server
 
-*For english, [click here](README.en.md)*
+**For english, [click here](README.en.md)**
 
 Fala Pessoal,
 
@@ -37,6 +37,6 @@ http://www.fabriciolima.net/blog/2019/09/22/passo-a-passo-de-como-criar-40-alert
 ## Como instalar os alertas?
  
 * Clone ou faça o donwload desse repositório.
-* Siga o [script do passo 1](scripts/1.0 - Step by Step to Create the Alerts.sql)
+* Siga o [script do passo 1](scripts/1.0.StepByStep.sql)
  
 
