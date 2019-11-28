@@ -247,7 +247,7 @@ BEGIN TRANSACTION
 			@description = N'No description available.',
 			@category_name = N'Database Maintenance',
 			@owner_login_name = N'sa',
-			@notify_email_operator_name=N'DBA_Operator',
+			@notify_email_operator_name=N'DBA_Team_Operator',
 			@job_id = @jobId OUTPUT
 			
 	IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback

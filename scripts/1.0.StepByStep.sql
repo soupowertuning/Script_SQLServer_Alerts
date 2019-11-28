@@ -52,21 +52,37 @@ exec sp_whoisactive
 -- 1) Criar um operator para utilizar nos jobs e uma database para armazenar os dados
 -- 1) Create an operator to use on Jobs and a new Database to store the data
 --------------------------------------------------------------------------------------------------------------------------------
-	USE [msdb]
+-- DBA Team and Client
+USE [msdb]
 	
-	if not exists (
-	select NULL
-	from msdb.dbo.sysoperators
-	where name = 'DBA_Operator' )
-	begin 
-		EXEC [msdb].[dbo].[sp_add_operator]
-				@name = N'DBA_Operator',
-				@enabled = 1,
-				@pager_days = 0,
-				@email_address = N'EMail1@provedor.com'	-- To put more Emails: 'EMail1@provedor.com;EMail2@provedor.com'	
+if not exists (
+select NULL
+from msdb.dbo.sysoperators
+where name = 'DBA_Operator' )
+begin 
+	EXEC [msdb].[dbo].[sp_add_operator]
+			@name = N'DBA_Operator',
+			@enabled = 1,
+			@pager_days = 0,
+			@email_address = N'EMail1@provedor.com'	-- To put more Emails: 'EMail1@provedor.com;EMail2@provedor.com'	
 
-	end
+end
 
+-- Only DBA Team
+USE [msdb]
+	
+if not exists (
+select NULL
+from msdb.dbo.sysoperators
+where name = 'DBA_Team_Operator' )
+begin 
+	EXEC [msdb].[dbo].[sp_add_operator]
+			@name = N'DBA_Team_Operator',
+			@enabled = 1,
+			@pager_days = 0,
+			@email_address = N'DBATEAM@provedor.com'	-- To put more Emails: 'EMail1@provedor.com;EMail2@provedor.com'	
+
+end
 
 
 --Criar uma database para armazenar as informações. Eu utilizo uma database chamada Traces. Caso queira utilizar outra, terá que alterar todo o script para a base com o seu nome.
@@ -114,7 +130,7 @@ GO
 -- RUN Script: "2.0 - Create Alert Table.sql"
 
 
--- Execute a procedure para criar a tabela com todos as configurações de alertas. Se preciso, esse é o lugar onde vai acertas os valores dos alertas.
+-- Execute a procedure para criar a tabela com todos as configurações de alertas. Se preciso, esse é o lugar onde vai acertar os valores dos alertas.
 -- Execute the procedure to create the Table with all Alert Configurations. If needed, this is the place to change some Alert Configurations. 
 
 -- Mude o parâmetro "Email1@provedor.com;Email2@provedor.com" para os e-mails que vão receber os alertas.

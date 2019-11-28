@@ -309,7 +309,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'DBA - Load XEvent Deadlock',
 		@description=N'No description available.', 
 		@category_name=N'Database Maintenance', 
 		@owner_login_name=N'sa', 
-		@notify_email_operator_name=N'DBA_Operator', @job_id = @jobId OUTPUT
+		@notify_email_operator_name=N'DBA_Team_Operator', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 /****** Object:  Step [PROC]    Script Date: 25/09/2017 23:40:03 ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Executa Procedure', 

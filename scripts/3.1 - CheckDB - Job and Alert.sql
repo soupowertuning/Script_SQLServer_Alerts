@@ -52,6 +52,15 @@ BEGIN
 
 	WHILE ( @Loop <= @Total )
 	BEGIN
+		-- Se passar de 6 da manha deve terminar a execução automaticamente
+		IF( 
+			( (SELECT DATEPART(WEEKDAY, GETDATE())) <> 1 AND (SELECT DATEPART(HOUR, GETDATE())) >= 6 )		-- SEGUNDA A SABADO - EXECUTA ATE AS 6 HORAS
+			OR ( (SELECT DATEPART(WEEKDAY, GETDATE())) = 1 AND (SELECT DATEPART(HOUR, GETDATE())) >= 23 )	-- DOMINGO - EXECUTA ATE AS 23 HORAS
+		)
+		BEGIN
+			BREAK
+		END
+
 		SELECT @Nm_Database = [Nm_Database]
 		FROM @Databases
 		WHERE [Id_Database] = @Loop

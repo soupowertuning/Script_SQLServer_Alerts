@@ -157,7 +157,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'DBA - Load XEvent Database E
 		@description=N'No description available.', 
 		@category_name=N'Database Maintenance', 
 		@owner_login_name=N'sa', 
-		@notify_email_operator_name=N'DBA_Operator',
+		@notify_email_operator_name=N'DBA_Team_Operator',
 		@job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 /****** Object:  Step [DBA - XEvent error]    Script Date: 22/02/2018 19:09:34 ******/

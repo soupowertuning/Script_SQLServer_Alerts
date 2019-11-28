@@ -3623,7 +3623,7 @@ BEGIN TRANSACTION
 			@delete_level = 0, 
 			@category_name = N'Database Maintenance', 
 			@owner_login_name = N'sa',
-			@notify_email_operator_name=N'DBA_Operator',
+			@notify_email_operator_name=N'DBA_Team_Operator',
 			@job_id = @jobId OUTPUT
 											
 	IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
@@ -3848,7 +3848,7 @@ BEGIN TRANSACTION
 			@description = N'No description available.', 
 			@category_name = N'Database Maintenance', 
 			@owner_login_name = N'sa', 
-			@notify_email_operator_name=N'DBA_Operator',
+			@notify_email_operator_name=N'DBA_Team_Operator',
 			@job_id = @jobId OUTPUT
 			
 	IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
@@ -3946,7 +3946,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'DBA - Load SQL Server Files 
 		@description=N'Nenhuma descrição disponível.', 
 		@category_name=N'Database Maintenance', 
 		@owner_login_name=N'sa', 
-		@notify_email_operator_name=N'DBA_Operator',
+		@notify_email_operator_name=N'DBA_Team_Operator',
 		@job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 /****** Object:  Step [Carga Utilização Arquivo]    Script Date: 02/15/2017 10:47:48 ******/

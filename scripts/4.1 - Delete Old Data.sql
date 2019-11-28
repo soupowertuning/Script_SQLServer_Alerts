@@ -130,7 +130,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'DBA - Delete OLD Data',
 		@description=N'Nenhuma descrição disponível.', 
 		@category_name=N'Database Maintenance', 
 		@owner_login_name=N'sa', 
-		@notify_email_operator_name=N'DBA_Operator', @job_id = @jobId OUTPUT
+		@notify_email_operator_name=N'DBA_Team_Operator', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 /****** Object:  Step [DBA -  Delete OLD Data]    Script Date: 9/9/2019 11:06:02 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'DBA -  Delete OLD Data', 
