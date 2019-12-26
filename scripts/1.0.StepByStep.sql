@@ -37,7 +37,7 @@ https://cursos.fabriciolima.net/course?courseid=criando-40-alertas-para-monitora
 -- Create the sp_whoisactive stored procedure (thanks to Adam Machanic)
 
 --Link to Download:
-http://whoisactive.com/downloads/
+ https://github.com/amachanic/sp_whoisactive/releases
 
 --Crie a procedure exatamente com esse nome: sp_whoisactive (se não fizer isso, podemos ter erros em bancos case sensitive)
 --Create the stored procedure name exactly as: sp_whoisactive (lower case, otherwise you can find errors related to case sensitive databases
