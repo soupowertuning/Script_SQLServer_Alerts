@@ -35,8 +35,8 @@ SET NOCOUNT ON
 	SELECT '<br />
 			<br />'			
 			+ 
-				'<a href="http://www.fabriciolima.net" target=”_blank”> 
-					<img	src="http://www.fabriciolima.net/wp-content/uploads/2019/03/LogoEscura.png"
+				'<a href="http://www.powertuning.com.br" target=”_blank”> 
+					<img	src="https://www.fabriciolima.net/wp-content/uploads/2020/02/logotipo-powertuning-v2.png"
 							height="150" width="400"/>
 				</a>',
 
