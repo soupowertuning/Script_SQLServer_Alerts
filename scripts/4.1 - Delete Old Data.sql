@@ -1,10 +1,10 @@
 
 /***********************************************************************************************************************************
-(C) 2016, Fabricio França Lima 
+(C) 2016, Autor: Fabricio França Lima 
 
 Blog: https://www.fabriciolima.net/blog/
 
-Feedback: suporte@fabriciolima.net
+Feedback: suporte@powertuning.com.br
 
 Instagram: @fabriciofrancalima
 
@@ -12,9 +12,10 @@ Twitter: @fabriciodba
 
 Facebook: https://www.facebook.com/fabricio.francalima
 
-Linkedin: https://www.linkedin.com/in/fabriciolimasolucoesembd/
+Linkedin: https://www.linkedin.com/in/fabriciofrancalima/
 
-Consultoria: comercial@fabriciolima.net
+Consultoria: comercial@powertuning.com.br
+
 ***********************************************************************************************************************************/
 
 
