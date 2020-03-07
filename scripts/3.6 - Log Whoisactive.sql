@@ -46,6 +46,10 @@ CREATE TABLE Log_Whoisactive (
 	[query_plan] xml
     )      
 
+GO
+create clustered index SK01_Log_Whoisactive on Log_Whoisactive(Dt_Log)
+GO
+
 USE [msdb]
 GO
 
