@@ -1,10 +1,9 @@
-﻿
 /***********************************************************************************************************************************
-(C) 2016, Fabricio França Lima 
+(C) 2016, autor: Fabricio França Lima 
 
 Blog: https://www.fabriciolima.net/blog/
 
-Feedback: suporte@fabriciolima.net
+Feedback: suporte@powertuning.com.br
 
 Instagram: @fabriciofrancalima
 
@@ -12,9 +11,9 @@ Twitter: @fabriciodba
 
 Facebook: https://www.facebook.com/fabricio.francalima
 
-Linkedin: https://www.linkedin.com/in/fabriciolimasolucoesembd/
+Linkedin: https://www.linkedin.com/in/fabriciofrancalima/
 
-Consultoria: comercial@fabriciolima.net
+Consultoria: comercial@powertuning.com.br
 
 ***********************************************************************************************************************************/
 
@@ -3145,10 +3144,13 @@ BEGIN
 	WHERE [Id_Alert] = (SELECT MAX(Id_Alert) FROM [dbo].[Alert] WHERE [Id_Alert_Parameter] = @Id_Alert_Parameter )		
 	
 	
+	--select total_physical_memory_kb/1024/1024,* from   sys.dm_os_sys_memory
+
 	--	Do we have Memory problem?	
 	IF EXISTS (	SELECT null		
 				FROM    sys.dm_os_sys_memory m
-				 WHERE   CAST((m.available_physical_memory_kb/1024) AS BIGINT) < @Vl_Parameter*1024 )		
+				 WHERE   CAST((m.available_physical_memory_kb/1024) AS BIGINT) < @Vl_Parameter*1024
+					 and 	total_physical_memory_kb/1024/1024 > @Vl_Parameter_2  )		
 	BEGIN	
 		IF ISNULL(@Fl_Type, 0) = 0	-- Control Alert/Clear
 		BEGIN
@@ -7279,125 +7281,112 @@ BEGIN
 	END
 END
 
+
+
 GO
 IF ( OBJECT_ID('[dbo].[stpAlert_Every_Minute]') IS NOT NULL ) 
 	DROP PROCEDURE [dbo].stpAlert_Every_Minute
 GO
 
 
-
 CREATE PROCEDURE dbo.stpAlert_Every_Minute
 AS
 BEGIN
 
-	--Alerts
-	EXEC dbo.stpWhoIsActive_Result
+	DECLARE @Query NVARCHAR(4000),@Proc VARCHAR(100), @Frequency_Minutes smallint,@Nm_Alert varchar(100),@Proc_Loop varchar(100)
 
-	-- Just on the business time
-	IF ( DATEPART(HOUR, GETDATE()) >= 6 AND DATEPART(HOUR, GETDATE()) < 23 )
+	DECLARE @Procedures TABLE(Nm_Procedure VARCHAR(100), Frequency_Minutes smallint,Nm_Alert varchar(100))
+
+	declare @minute_now tinyint , @hour_now tinyint , @day_now tinyint, @day_week tinyint
+	
+	select @minute_now = datepart(mi,getdate()),@hour_now = datepart(hh,getdate())+1,@day_week = datepart(dw,getdate()),@day_now=datepart(dd,getdate())
+
+	--select @minute_now , @hour_now,@day_now,@day_week
+	set @minute_now = 27
+	set @hour_now = 2
+
+	insert into @Procedures
+	select Nm_Procedure,Frequency_Minutes,Nm_Alert
+	from Traces..Alert_Parameter
+	where Fl_Enable = 1
+	and Frequency_Minutes is not null
+	and @hour_now between Hour_Start_Execution and Hour_End_Execution
+
+
+	select * from @Procedures
+	
+	SET @Query = ''		
+
+	WHILE EXISTS(SELECT TOP 1 NULL FROM @Procedures)
 	BEGIN
-		EXEC dbo.stpAlert_Blocked_Process 'Blocked Process'
+		SELECT TOP 1 @Proc = Nm_Procedure,@Frequency_Minutes = Frequency_Minutes,@Nm_Alert = Nm_Alert
+		FROM @Procedures
 
-		EXEC dbo.stpAlert_Blocked_Process 'Blocked Long Process'
+		/*
+			32000 monthly on day 1
+			25200 weekly on monday 
+			3600 dayly
+			60 every 1 hour
+			20 every 20 minutes
+			5 every 5 minutes 
+			1 every 1 minutes 
+		*/
+		 
 
-		EXEC dbo.stpAlert_CPU_Utilization
+		if (@Frequency_Minutes = 60 and @minute_now =58) OR -- every hour run on minute 58
+		   (@minute_now%@Frequency_Minutes = 0 and @Frequency_Minutes < 60) 			--1,5,20 minutes or other different frequency
+		begin  
 
-	END
+			if @Nm_Alert = 'Blocked Process'
+				set @Proc = @Proc + ' ''Blocked Process'''
+			else 
+				if @Nm_Alert = 'Blocked Long Process'
+					set @Proc = @Proc + ' ''Blocked Long Process'''
+				else
+					if @Nm_Alert ='Slow Disk Every Hour'
+						 set @Proc = @Proc + ' ''Slow Disk Every Hour'''
+					else	if 	@Nm_Alert ='Slow Disk Every Hour'
+							set @Proc = 'EXEC dbo.stpRead_Error_log 1 ' + @Proc 
 
-	EXEC dbo.stpAlert_CPU_Utilization_MI
+			SET @Query = @Query  + ' EXEC ' + @Proc
+		end
 
-	EXEC dbo.stpAlert_Database_Status
-
-	EXEC dbo.stpAlert_IO_Pending 
-
-	EXEC dbo.stpAlert_Large_LDF_File
-
-	EXEC dbo.stpAlert_Log_Full
-
-	EXEC dbo.stpAlert_Memory_Available
-
-	EXEC dbo.stpAlert_Page_Corruption
-	
-
-	-- Executado a cada 20 minutos
-	IF ( DATEPART(mi, GETDATE()) %20 = 0 )
-	BEGIN
-		EXEC dbo.stpAlert_SQLServer_Restarted
-	END
-	
-	-- Every Five minute
-	IF  DATEPART(MINUTE,GETDATE()) % 5 = 0 
-	BEGIN
-		EXEC dbo.stpAlert_Disk_Space
-		EXEC dbo.stpAlert_Tempdb_MDF_File_Utilization
-	END
-
-	IF  DATEPART(MINUTE,GETDATE()) = 58 -- Every hour
-	BEGIN 
-		EXEC dbo.stpRead_Error_log 1 -- Just if Error Log size < 5 MB (VL_Parameter_2). 
-		EXEC dbo.stpAlert_Slow_Disk 'Slow Disk Every Hour' --Disable by default. Do a update on the table Alert_Parameter
-		EXEC dbo.stpAlert_SQLServer_Connection
-		EXEC dbo.stpAlert_Database_Without_Log_Backup
-		EXEC stpAlert_MaxSize_Growth
-	END
-
-	--IF CONVERT(char(20), SERVERPROPERTY('IsClustered')) = 1	
-	--BEGIN	
-	--	EXEC stpAlert_Cluster_Active_Node
-	--	EXEC stpAlert_Cluster_Node_Status
-	--END
-
-END
-GO
-GO
-IF ( OBJECT_ID('[dbo].[stpAlert_Every_Day]') IS NOT NULL ) 
-	DROP PROCEDURE [dbo].stpAlert_Every_Day
-GO
-
-CREATE PROCEDURE dbo.stpAlert_Every_Day
-AS
-BEGIN
-	--Alertas Diarios 
-	EXEC dbo.stpWhoIsActive_Result
-
-	EXEC dbo.stpAlert_Long_Runnning_Process
-	
-	EXEC dbo.stpRead_Error_log 0
-		
-	EXEC dbo.stpAlert_Slow_Disk 'Slow Disk' 
-
-	EXEC dbo.stpAlert_Database_Created
-
-	EXEC dbo.stpAlert_Database_Without_Backup
-
-	EXEC dbo.stpAlert_Job_Disabled
-
-	EXEC dbo.stpAlert_Job_Failed
-
-	EXEC dbo.stpAlert_Login_Failed
-	
-	EXEC dbo.stpAlert_Slow_File_Growth
-
-	EXEC dbo.stpAlert_Without_Clear
-
-	---- Put after the Rebuild Job
-	--EXEC dbo.stpAlert_Rebuild_Failed
-
-	--Enable if use deadlock
-	--EXEC dbo.stpAlert_DeadLocks
-	
-	EXEC stpAlert_Database_Growth
-
-	-- Once a month
-	IF DATEPART(dd,GETDATE()) = 1
-		EXEC dbo.stpSQLServer_Configuration
+		if (@Frequency_Minutes = 32000 AND @day_now = 1 and @minute_now = 27) OR		--run just on day 1
+			(@Frequency_Minutes = 25200 AND @day_week = 2 and @minute_now = 27) OR		-- weekly run just on monday
+			(@Frequency_Minutes = 3600 and @minute_now = 27)		--daily
+		begin 
 			
-	IF EXISTS (SELECT * FROM Alert_Parameter WHERE Nm_Alert = 'Database Errors' AND Fl_Enable = 1)
-		EXEC dbo.stpAlert_Database_Errors
+			if not exists (select null from Log_Alert_Execution where @Nm_Alert = Nm_Alert and Dt_Execucao >= cast(getdate() as date))
+			begin 
+			
+				if @Nm_Alert = 'Slow Disk' 
+				begin 
+					set @Proc = @Proc + ' ''Slow Disk'''
+					set @Query = 'EXEC dbo.stpRead_Error_log 0' + @Query  --Slow Disk, Login Failed and other alerts that need to use Error_Log
+				end							
 
-		--Every Monday
-	IF DATEPART(dw,GETDATE()) = 2
-		EXEC dbo.stpAlert_Index_Fragmentation
+				SET @Query = @Query  + ' EXEC ' + @Proc			
+
+				insert into Log_Alert_Execution(Nm_Procedure,Dt_Execucao,Nm_Alert)
+				select @Proc,getdate(),@Nm_Alert
+
+				delete from Log_Alert_Execution
+				where Dt_Execucao < getdate()-7
+			end
+
+		end
+
+		DELETE FROM @Procedures
+		WHERE Nm_Alert = @Nm_Alert 
+
+	end
+		
+	set @Query = 'EXEC dbo.stpWhoIsActive_Result '+ @Query
+	
+	SELECT @Query
+
+	EXECUTE sp_executesql @Query
+
 
 END
 	
@@ -7728,7 +7717,7 @@ QuitWithRollback:
 EndSave:
 
 GO
-
+/*
 
 USE [msdb]
 
@@ -7821,6 +7810,7 @@ QuitWithRollback:
 	
 EndSave:
 
+*/
 GO
 USE [msdb]
 
@@ -7898,3 +7888,4 @@ EndSave:
 GO
 
 USE Traces
+
