@@ -42,7 +42,8 @@ CREATE TABLE Log_Whoisactive (
 	[reads_delta] varchar(100),
 	[writes] varchar(100), 
 	[program_name] nvarchar(500), 
-	[open_tran_count] INT NULL
+	[open_tran_count] INT NULL,
+	[query_plan] xml
     )      
 
 USE [msdb]
@@ -90,8 +91,8 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'DBA - Lo
 		@retry_attempts=0, 
 		@retry_interval=0, 
 		@os_run_priority=0, @subsystem=N'TSQL', 
-		@command=N'EXEC sp_whoisactive @get_outer_command = 1, @delta_interval = 1,
-										@output_column_list = ''[collection_time][d%][session_id][blocking_session_id][sql_text][login_name][wait_info][status][percent_complete][host_name][database_name][sql_command][CPU][reads][CPU_delta][reads_delta][writes][program_name][open_tran_count]'', 
+		@command=N'EXEC sp_whoisactive @get_outer_command = 1, @delta_interval = 1,@get_plans = 1,
+										@output_column_list = ''[collection_time][d%][session_id][blocking_session_id][sql_text][login_name][wait_info][status][percent_complete][host_name][database_name][sql_command][CPU][reads][CPU_delta][reads_delta][writes][program_name][open_tran_count][query_plan]'', 
 										@destination_table = ''Log_Whoisactive''', 
 		@database_name=N'Traces', 
 		@flags=0
