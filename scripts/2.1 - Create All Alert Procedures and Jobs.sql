@@ -1859,8 +1859,10 @@ BEGIN
 
 	SELECT [name], [state_desc]
 	INTO #Temp_Database_Status
-	FROM [sys].[databases]
+	FROM [sys].[databases] AS A
+	LEFT JOIN ignore_databases B ON A.[name] = B.Nm_Database
 	WHERE [state_desc] NOT IN ('ONLINE','RESTORING')
+	AND B.Nm_Database IS NULL
 
 
 	--	Do we have log Full?
