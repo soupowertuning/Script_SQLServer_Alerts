@@ -36,7 +36,7 @@ Segue o Artigo desses scripts caso precisem de ajuda para executá-los:
 
 ## Como instalar os alertas?
 
-* [Faça o donwload da última release](/releases/latest)
+* [Faça o donwload da última release](Script_SQLServer_Alerts/releases/latest)
   * **Dica**: Você pode usar alguma ferramenta (como o git) para fazer o clone, ou baixar manualmente este repositório.
 * Todos os scritps estão no diretório [scripts](scripts/)
 * Para iniciar, siga as instruções do arquivo [scripts/1.0.StepByStep.sql](scripts/1.0.StepByStep.sql)
