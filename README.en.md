@@ -18,7 +18,7 @@ Now, in September-2019, I released the version 2.0:
 
 ## How install
 
-* [Download latest release](Script_SQLServer_Alerts/releases/latest)
+* [Download latest release](https://github.com/soupowertuning/Script_SQLServer_Alerts/releases/latest)
   * **Tip**: You can clone using some git client or manually download this repository
 * All scripts can be found on [scripts directory](scripts/) 
 * To get started, follow the instructions on file [scripts/1.0.StepByStep.sql](scripts/1.0.StepByStep.sql)
