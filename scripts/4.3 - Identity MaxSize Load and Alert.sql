@@ -191,7 +191,7 @@ BEGIN
 		EXEC dbo.stpExport_Table_HTML_Output
 			@Ds_Tabela = '##Email_HTML',	
 			@Ds_Alinhamento  = 'center',
-			@Ds_OrderBy = 'database_name',
+			@Ds_OrderBy = 'Dt_Log',
 			@Ds_Saida = @HTML OUT			
 						
 		-- First Result
@@ -266,7 +266,7 @@ BEGIN
 			EXEC dbo.stpExport_Table_HTML_Output
 				@Ds_Tabela = '##Email_HTML_CLEAR', -- varchar(max)
 				@Ds_Alinhamento  = 'center',
-			@Ds_OrderBy = 'database_name',
+			@Ds_OrderBy = 'Dt_Log',
 				@Ds_Saida = @HTML OUT				-- varchar(max)
 
 			-- First Result
