@@ -19,6 +19,23 @@ Consultoria: comercial@powertuning.com.br
 
 USE Traces
 
+
+GO
+IF ( OBJECT_ID('[dbo].[stpAlert_Every_Day]') IS NOT NULL ) 
+	DROP PROCEDURE [dbo].stpAlert_Every_Day
+GO
+
+
+CREATE PROCEDURE dbo.stpAlert_Every_Day
+AS
+BEGIN
+	select 'O script dos alertas foram melhorados após a criação do vídeo e não precisam mais dessa procedure'
+	select 'Todos os alertas são chamados pela sp stpAlert_Every_Minute controlados pelas 3 colunas novas criadas em Alert_Paramenter'
+
+END
+GO
+
+
 SET NOCOUNT ON
   
   
