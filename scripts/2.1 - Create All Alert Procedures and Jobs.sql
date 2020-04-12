@@ -7327,7 +7327,7 @@ BEGIN
 	and @hour_now between Hour_Start_Execution and Hour_End_Execution
 
 
-	select * from @Procedures
+	--select * from @Procedures
 	
 	SET @Query = ''		
 
@@ -7397,7 +7397,7 @@ BEGIN
 		
 	set @Query = 'EXEC dbo.stpWhoIsActive_Result '+ @Query
 	
-	SELECT @Query
+	--SELECT @Query
 
 	EXECUTE sp_executesql @Query
 
