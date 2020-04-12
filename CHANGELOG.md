@@ -18,7 +18,7 @@ Este formato é baseado em [Keep a Changelog](https://keepachangelog.com/en/1.0.
 
 ### Fixed
 
-- Ajuste na procedure dbo.stpAlert_Every_Day que não é mais necessária. Apenas mantendo ela pra compatibilidade anterior
+- Ajuste na procedure dbo.stpAlert_Every_Day que não é mais necessária. Apenas mantendo ela pra compatibilidade anterior.
 
 ## [2.0.0] - 2017-09-22
 
