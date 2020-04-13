@@ -19,6 +19,23 @@ Consultoria: comercial@powertuning.com.br
 
 USE Traces
 
+
+GO
+IF ( OBJECT_ID('[dbo].[stpAlert_Every_Day]') IS NOT NULL ) 
+	DROP PROCEDURE [dbo].stpAlert_Every_Day
+GO
+
+
+CREATE PROCEDURE dbo.stpAlert_Every_Day
+AS
+BEGIN
+	select 'O script dos alertas foram melhorados após a criação do vídeo e não precisam mais dessa procedure'
+	select 'Todos os alertas são chamados pela sp stpAlert_Every_Minute controlados pelas 3 colunas novas criadas em Alert_Paramenter'
+
+END
+GO
+
+
 SET NOCOUNT ON
   
   
@@ -5060,7 +5077,7 @@ SET NOCOUNT ON
 			-- First Result
 			SET @Final_HTML = @Header + @Line_Space + @HTML + @Line_Space 		
 						
-		--	EXEC stpSend_Dbmail @Ds_Profile_Email,@Ds_Email,@Ds_Subject,@Final_HTML,'HTML','High'							
+			EXEC stpSend_Dbmail @Ds_Profile_Email,@Ds_Email,@Ds_Subject,@Final_HTML,'HTML','High'							
 		
 			-- Fl_Type = 1 : ALERT	
 			INSERT INTO [dbo].[Alert] ( [Id_Alert_Parameter], [Ds_Message], [Fl_Type] )
@@ -7327,7 +7344,7 @@ BEGIN
 	and @hour_now between Hour_Start_Execution and Hour_End_Execution
 
 
-	select * from @Procedures
+	--select * from @Procedures
 	
 	SET @Query = ''		
 
@@ -7397,7 +7414,7 @@ BEGIN
 		
 	set @Query = 'EXEC dbo.stpWhoIsActive_Result '+ @Query
 	
-	SELECT @Query
+	--SELECT @Query
 
 	EXECUTE sp_executesql @Query
 

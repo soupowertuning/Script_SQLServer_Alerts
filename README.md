@@ -41,5 +41,11 @@ Segue o Artigo desses scripts caso precisem de ajuda para executá-los:
 * Todos os scritps estão no diretório [scripts](scripts/)
 * Para iniciar, siga as instruções do arquivo [scripts/1.0.StepByStep.sql](scripts/1.0.StepByStep.sql)
 
+
+## Como contribuir?
+
+Você pode contribuir para a melhoria deste projeto! [Leia nosso guia de contribuição](doc/CONTRIB.md)
+
+
 Fabrício Lima  
 _CEO Power Tuning_
