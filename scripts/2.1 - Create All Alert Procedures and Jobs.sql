@@ -5077,7 +5077,7 @@ SET NOCOUNT ON
 			-- First Result
 			SET @Final_HTML = @Header + @Line_Space + @HTML + @Line_Space 		
 						
-		--	EXEC stpSend_Dbmail @Ds_Profile_Email,@Ds_Email,@Ds_Subject,@Final_HTML,'HTML','High'							
+			EXEC stpSend_Dbmail @Ds_Profile_Email,@Ds_Email,@Ds_Subject,@Final_HTML,'HTML','High'							
 		
 			-- Fl_Type = 1 : ALERT	
 			INSERT INTO [dbo].[Alert] ( [Id_Alert_Parameter], [Ds_Message], [Fl_Type] )
