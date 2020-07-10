@@ -1823,6 +1823,21 @@ begin
  WAITFOR DELAY '00:00:05'  
   
  SELECT @RequestsPerSecondSample2 = cntr_value FROM sys.dm_os_performance_counters WHERE counter_name = 'Batch Requests/sec'  
+DECLARE @BatchRequests INT,@User_Connection INT, @CPU INT, @PLE int,@SQLCompilations int,@PS bigint  
+  
+ DECLARE @RequestsPerSecondSample1 BIGINT,  @RequestsPerSecondSample2 BIGINT  
+ DECLARE @SQLCompilationsSample1  BIGINT,  @SQLCompilationsSample2  BIGINT  
+  
+ SELECT @RequestsPerSecondSample1  = (case when counter_name = 'Batch Requests/sec' then cntr_value end)  
+ FROM sys.dm_os_performance_counters   
+ WHERE counter_name in ('Batch Requests/sec','SQL Compilations/sec')  
+   
+ SELECT @RequestsPerSecondSample1 = cntr_value FROM sys.dm_os_performance_counters WHERE counter_name = 'Batch Requests/sec'  
+ SELECT @SQLCompilationsSample1 = cntr_value FROM sys.dm_os_performance_counters WHERE counter_name = 'SQL Compilations/sec'  
+   
+ WAITFOR DELAY '00:00:05'  
+  
+ SELECT @RequestsPerSecondSample2 = cntr_value FROM sys.dm_os_performance_counters WHERE counter_name = 'Batch Requests/sec'  
  SELECT @SQLCompilationsSample2 = cntr_value FROM sys.dm_os_performance_counters WHERE counter_name = 'SQL Compilations/sec'  
   
  SELECT @BatchRequests = (@RequestsPerSecondSample2 - @RequestsPerSecondSample1)/5  
@@ -1831,23 +1846,30 @@ begin
  select @User_Connection = cntr_Value  
  from sys.dm_os_performance_counters  
  where counter_name = 'User Connections'  
-          
-     SELECT  TOP(1) @CPU  = (SQLProcessUtilization + (100 - SystemIdle - SQLProcessUtilization ) )  
-     FROM (   
-        SELECT record.value('(./Record/@id)[1]', 'int') AS record_id,   
-        record.value('(./Record/SchedulerMonitorEvent/SystemHealth/SystemIdle)[1]', 'int')   
-        AS [SystemIdle],   
-        record.value('(./Record/SchedulerMonitorEvent/SystemHealth/ProcessUtilization)[1]',   
-        'int')   
-        AS [SQLProcessUtilization], [timestamp]   
-        FROM (   
-        SELECT [timestamp], CONVERT(xml, record) AS [record]   
-        FROM sys.dm_os_ring_buffers   
-        WHERE ring_buffer_type = N'RING_BUFFER_SCHEDULER_MONITOR'   
-        AND record LIKE '%<SystemHealth>%') AS x   
-        ) AS y   
-          
-          
+         
+	insert into _Alert_CPU ([record_id], [SQLProcessUtilization], [OtherProcessUtilization], [SystemIdle], [CPU_Utilization], [Dt_Log])
+	SELECT top 1
+		[record_id],
+		[SQLProcessUtilization],
+		(100 - SystemIdle - SQLProcessUtilization) as [OtherProcessUtilization],
+		[SystemIdle],
+		(100 - SystemIdle) AS [CPU_Utilization],
+		GETDATE() as Dt_Log
+	FROM	( 
+				SELECT	record.value('(./Record/@id)[1]', 'int')													AS [record_id], 
+						record.value('(./Record/SchedulerMonitorEvent/SystemHealth/SystemIdle)[1]', 'int')			AS [SystemIdle],
+						record.value('(./Record/SchedulerMonitorEvent/SystemHealth/ProcessUtilization)[1]', 'int')	AS [SQLProcessUtilization], 
+						[timestamp] 
+				FROM ( 
+						SELECT [timestamp], CONVERT(XML, [record]) AS [record] 
+						FROM [sys].[dm_os_ring_buffers] 
+						WHERE	[ring_buffer_type] = N'RING_BUFFER_SCHEDULER_MONITOR' 
+								AND [record] LIKE '%<SystemHealth>%'
+					) AS X					   
+			) AS Y
+
+     select top 1 @CPU = CPU_Utilization from [_Alert_CPU] order by Dt_Log desc
+	 
 	 SELECT @PLE = cntr_value   
 	 FROM sys.dm_os_performance_counters  
 	 WHERE  counter_name = 'Page life expectancy'  
@@ -1869,7 +1891,7 @@ begin
 	 insert INTO Log_Counter(Dt_Log,Id_Counter,Value)  
 	 Select GETDATE(), 5,@SQLCompilations  
 	 insert INTO Log_Counter(Dt_Log,Id_Counter,Value)  
-	 Select GETDATE(), 6,@PS  
+	 Select GETDATE(), 6,@PS    
 
 END
 
