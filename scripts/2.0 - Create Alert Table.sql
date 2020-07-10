@@ -914,3 +914,18 @@ GO
 
 CREATE NONCLUSTERED INDEX SK01_Waits_Stats_History ON Waits_Stats_History([WaitType],Id_Waits_Stats_History) 
 GO
+
+if object_id('_Alert_CPU') is not null
+	drop table _Alert_CPU
+
+GO
+CREATE TABLE [dbo].[_Alert_CPU](
+	[Id_Alert_CPU] [int] IDENTITY(1,1) NOT NULL,
+	[record_id] [int] NULL,
+	[SQLProcessUtilization] [int] NULL,
+	[OtherProcessUtilization] [int] NULL,
+	[SystemIdle] [int] NULL,
+	[CPU_Utilization] [int] NULL,
+	[Dt_Log] [datetime] NULL
+) ON [PRIMARY]
+GOv
