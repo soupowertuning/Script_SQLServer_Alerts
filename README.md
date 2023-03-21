@@ -2,6 +2,10 @@
 
 **For english, [click here](README.en.md)**
 
+
+*** Atualização 21/03/2023 - Aproveite e conheça o Power Alerts, uma evolução GIGANTE desse script de alertas da comunidade: https://powertuning.com.br/poweralerts/
+
+
 Fala Pessoal,
 
 Nesse repositório quero compartilhar com vocês um projeto que surgiu em 2010 com um e-mail para criar um checklist de um banco de dados 
