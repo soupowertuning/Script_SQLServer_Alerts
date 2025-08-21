@@ -1,3 +1,7 @@
+> [!CAUTION]
+> Estes scripts não são mais atualizados e podem conter bugs. Não recomendamos o uso em produção.  
+> Para produção, recomendamos usar o [Power Alerts](https://poweralerts.com.br/), que contém atualizações e correcoes de bugs.
+
 # Scripts para criar 40 Alertas no SQL Server
 
 **For english, [click here](README.en.md)**
